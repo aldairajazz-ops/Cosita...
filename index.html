@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Para Fátima... Mi Cosita Eterna 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       PALETA DE COLORES MONOCROMÁTICA: GRIS, NEGRO Y BLANCO
+       Estilo elegante, sobrio, conmovedor y con destellos plateados
+       ========================================================================== */
+    :root {
+      --bg-void: #050507;
+      --bg-dark: #0a0a0d;
+      --bg-gradient: radial-gradient(circle at 50% 15%, #18181f 0%, #0c0c10 50%, #050507 100%);
+      --card-bg: rgba(18, 18, 22, 0.75);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --border-silver: rgba(255, 255, 255, 0.22);
+      --border-bright: rgba(255, 255, 255, 0.5);
+      
+      --text-pure: #ffffff;
+      --text-silver: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+
+      --silver-glow: rgba(255, 255, 255, 0.25);
+      --silver-highlight: #f4f4f5;
+      --white-accent: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--bg-void);
+      background-image: var(--bg-gradient);
+      color: var(--text-pure);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* CANVAS 1: FONDO PERMANENTE (Estrellas plateadas, huellitas de gato y luciérnagas blancas) */
+    #spaceCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* CANVAS 2: GATITOS CHIQUITOS INTERACTIVOS (Florecen donde haces clic) */
+    #kittyCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* PANTALLA INICIAL: CARTA SELLADA EN BLANCO, GRIS Y NEGRO */
+    #introOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 7, 0.96);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+      text-align: center;
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+    }
+
+    #introOverlay.fade-out {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-box {
+      position: relative;
+      background: linear-gradient(145deg, rgba(28, 28, 34, 0.9), rgba(12, 12, 16, 0.95));
+      border: 1px solid var(--border-silver);
+      border-radius: 24px;
+      padding: 45px 32px;
+      max-width: 490px;
+      width: 90%;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 255, 255, 0.1);
+      animation: gentleFloat 4.5s ease-in-out infinite;
+      cursor: pointer;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .envelope-box:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--border-bright);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(255, 255, 255, 0.22);
+    }
+
+    .envelope-seal {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #2a2a32 0%, #121216 100%);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 2px 6px rgba(255, 255, 255, 0.3);
+      font-size: 2.3rem;
+      animation: pulseSeal 2.2s infinite;
+    }
+
+    .intro-to {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .intro-name {
+      font-family: 'Alex Brush', cursive;
+      font-size: clamp(3.2rem, 10vw, 4.4rem);
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.7);
+      margin-bottom: 8px;
+      line-height: 1.1;
+    }
+
+    .intro-sub {
+      font-size: 0.95rem;
+      color: var(--text-silver);
+      font-style: italic;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+    }
+
+    .btn-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #2c2c34 0%, #17171d 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 15px 36px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-open:hover {
+      background: linear-gradient(135deg, #3f3f4a 0%, #22222a 100%);
+      border-color: #ffffff;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 255, 255, 0.3);
+      transform: scale(1.04);
+    }
+
+    .intro-hint {
+      margin-top: 22px;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .app-container {
+      position: relative;
+      z-index: 10;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 20px 100px;
+    }
+
+    /* BOTONES FLOTANTES SUPERIORES (MÚSICA Y CONTROLES) */
+    .top-bar {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 500;
+      display: flex;
+      gap: 10px;
+    }
+
+    .glass-btn {
+      background: rgba(18, 18, 24, 0.8);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-silver);
+      color: #ffffff;
+      padding: 9px 18px;
+      border-radius: 30px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .glass-btn:hover {
+      background: rgba(35, 35, 45, 0.9);
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .glass-btn.active {
+      border-color: #ffffff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    /* ENCABEZADO PRINCIPAL (HERO) */
+    .hero {
+      text-align: center;
+      padding: 70px 15px 40px;
+      animation: fadeIn 1.8s ease;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50px;
+      color: var(--text-silver);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-title {
+      font-family: 'Alex Brush', cursive;
+      font-size: clamp(3.8rem, 10vw, 6.4rem);
+      line-height: 1.05;
+      color: #ffffff;
+      text-shadow: 0 0 35px rgba(255, 255, 255, 0.6);
+      margin-bottom: 14px;
+    }
+
+    .hero-nickname {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-style: italic;
+      color: var(--text-silver);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .hero-nickname::before, .hero-nickname::after {
+      content: "";
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    }
+
+    .hero-quote {
+      max-width: 700px;
+      margin: 0 auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.38rem;
+      line-height: 1.65;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* TARJETAS GLASSMORPHISM EN GRIS OSCURO Y NEGRO */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 42px 34px;
+      margin-bottom: 45px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s ease, transform 0.4s ease;
+    }
+
+    .section-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-2px);
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 26px;
+    }
+
+    .section-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .section-title span {
+      color: var(--text-silver);
+      font-style: italic;
+    }
+
+    /* 1. SECCIÓN: LA CARTA SINCERA */
+    .letter-container {
+      background: rgba(12, 12, 16, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 38px 30px;
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      line-height: 1.88;
+      color: #f1f1f5;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .letter-container p {
+      margin-bottom: 20px;
+      text-indent: 20px;
+    }
+
+    .letter-container p:first-of-type {
+      text-indent: 0;
+    }
+
+    .letter-container strong {
+      color: #ffffff;
+      font-weight: 600;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+    }
+
+    .highlight-silver {
+      color: #ffffff;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .highlight-pure {
+      color: #ffffff;
+      font-style: italic;
+      text-shadow: 0 0 15px rgba(255, 255, 255, 0.45);
+    }
+
+    .letter-signature {
+      margin-top: 35px;
+      text-align: right;
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.6rem;
+      color: #ffffff;
+      text-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+    }
+
+    /* 2. SECCIÓN: FOTO DE FÁTIMA (EL REFUGIO DE PAZ) */
+    .fati-showcase-container {
+      position: relative;
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--border-silver);
+      background: #0d0d10;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 255, 255, 0.08);
+      margin-bottom: 25px;
+    }
+
+    .fati-image {
+      width: 100%;
+      height: auto;
+      max-height: 580px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+      filter: brightness(0.96) contrast(1.04);
+    }
+
+    .fati-showcase-container:hover .fati-image {
+      transform: scale(1.02);
+      filter: brightness(1.02) contrast(1.06);
+    }
+
+    .fati-badge-overlay {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(10, 10, 14, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 18px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .fati-badge-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .fati-badge-desc {
+      font-size: 0.88rem;
+      color: var(--text-silver);
+      line-height: 1.5;
+    }
+
+    .dream-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .dream-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      color: var(--text-silver);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .dream-pill:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* CARRUSEL DE RECUERDOS (PLAYA / CAMPO) */
+    .memory-section-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 26px;
+      justify-content: space-between;
+    }
+
+    .memory-toggle-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .memory-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      transform: rotate(180deg);
+    }
+
+    .memory-carousel {
+      position: relative;
+    }
+
+    .memory-slide {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .memory-slide.active {
+      display: block;
+    }
+
+    .memory-text {
+      margin-top: 20px;
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-silver);
+    }
+
+    .memory-text p {
+      white-space: pre-wrap;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Ajuste para imagen de Puppet más grande */
+    .puppet-img-frame {
+      width: 220px;
+      height: 220px;
+    }
+
+    .puppet-img {
+      width: 95%;
+      height: 95%;
+    }
+
+    /* 3. SECCIÓN: GATITOS CHIQUITOS INTERACTIVOS */
+    .cats-interactive-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .cats-interactive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cat-stage {
+      background: radial-gradient(circle, rgba(35, 35, 45, 0.5) 0%, rgba(14, 14, 18, 0.8) 100%);
+      border: 1px solid var(--border-silver);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .cat-stage:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-bright);
+    }
+
+    .cat-svg-wrapper {
+      width: 175px;
+      height: 175px;
+      margin: 0 auto 15px;
+      position: relative;
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .cat-stage:active .cat-svg-wrapper {
+      transform: scale(0.94);
+    }
+
+    .cat-bubble {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      color: #ffffff;
+      margin-top: 10px;
+      font-style: italic;
+      min-height: 40px;
+      transition: all 0.3s ease;
+    }
+
+    .cat-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+    }
+
+    .cat-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 25px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .cat-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .cats-narrative {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-silver);
+    }
+
+    .cats-narrative p {
+      margin-bottom: 16px;
+    }
+
+    .cats-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #ffffff;
+      padding-left: 16px;
+      border-left: 2px solid #ffffff;
+      margin-top: 16px;
+    }
+
+    /* 4. SECCIÓN: PUPPET (FNAF) CON FOTO 1.PNG Y CANCIÓN 1.MP3 */
+    .fnaf-section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .fnaf-section-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .puppet-card {
+      background: linear-gradient(145deg, rgba(28, 28, 36, 0.75), rgba(12, 12, 16, 0.95));
+      border: 1px solid var(--border-silver);
+      border-radius: 22px;
+      padding: 30px 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+    }
+
+    .puppet-img-frame {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.7);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .puppet-img-frame:hover {
+      transform: scale(1.05);
+      border-color: #ffffff;
+      box-shadow: 0 0 40px rgba(255, 255, 255, 0.45);
+    }
+
+    .puppet-img-frame.playing {
+      animation: puppetGlowPulse 2.8s infinite alternate;
+    }
+
+    .puppet-img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35));
+    }
+
+    .puppet-play-btn {
+      background: linear-gradient(135deg, #ffffff 0%, #d1d1d6 100%);
+      color: #09090c;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+      margin-top: 15px;
+    }
+
+    .puppet-play-btn:hover {
+      background: #ffffff;
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 255, 255, 0.45);
+    }
+
+    .kitty-counter-card {
+      background: linear-gradient(145deg, rgba(28, 28, 36, 0.75), rgba(12, 12, 16, 0.95));
+      border: 1px solid var(--border-silver);
+      border-radius: 22px;
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .kitty-counter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 18px;
+      border-radius: 30px;
+      color: #ffffff;
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+
+    .btn-burst-kitties {
+      background: linear-gradient(135deg, #33333d 0%, #1a1a22 100%);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      padding: 14px 26px;
+      border-radius: 35px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 18px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      transition: all 0.3s ease;
+    }
+
+    .btn-burst-kitties:hover {
+      background: linear-gradient(135deg, #444452 0%, #252530 100%);
+      border-color: #ffffff;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* 5. TARJETAS DE DETALLES EN BLANCO, GRIS Y NEGRO */
+    .reasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .reason-box {
+      background: rgba(16, 16, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 18px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .reason-box:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.35);
+      background: rgba(25, 25, 32, 0.85);
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .reason-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    }
+
+    .reason-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .reason-desc {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: var(--text-silver);
+    }
+
+    /* 6. DESEO FINAL Y PROMESA INCONDICIONAL */
+    .wish-box {
+      text-align: center;
+      background: linear-gradient(145deg, rgba(28, 28, 36, 0.8), rgba(12, 12, 16, 0.95));
+      border: 1px solid var(--border-silver);
+      border-radius: 24px;
+      padding: 45px 28px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8);
+    }
+
+    .wish-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 4vw, 1.95rem);
+      line-height: 1.65;
+      color: #ffffff;
+      font-style: italic;
+      margin-bottom: 28px;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-hug {
+      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+      color: #0c0c10;
+      border: none;
+      padding: 16px 42px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.25);
+      transition: all 0.3s ease;
+    }
+
+    .btn-hug:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 45px rgba(255, 255, 255, 0.45);
+    }
+
+    /* MODAL DE ABRAZO Y DESEO */
+    #hugModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 8, 0.92);
+      backdrop-filter: blur(14px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+
+    #hugModal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .hug-content {
+      background: linear-gradient(145deg, #1e1e26, #0e0e12);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 42px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 45px rgba(255, 255, 255, 0.15);
+      animation: zoomIn 0.35s ease;
+    }
+
+    .hug-heart-anim {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      display: inline-block;
+      animation: heartbeat 1.3s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.6));
+    }
+
+    /* NOTIFICACIÓN FLOTANTE (TOAST) */
+    #toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(24, 24, 30, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
+      z-index: 1500;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* PISTA INFERIOR */
+    .click-hint {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.78rem;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.45);
+      z-index: 50;
+      pointer-events: none;
+      animation: fadeIn 3s ease forwards;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 35px 15px;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.45);
+      letter-spacing: 2px;
+    }
+
+    /* KEYFRAMES */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulseSeal {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.25)); }
+      50% { transform: scale(1.08); filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.5)); }
+    }
+
+    @keyframes puppetGlowPulse {
+      0% { border-color: rgba(255, 255, 255, 0.3); box-shadow: 0 0 25px rgba(255, 255, 255, 0.2); }
+      100% { border-color: #ffffff; box-shadow: 0 0 50px rgba(255, 255, 255, 0.6); }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.2); }
+      40% { transform: scale(0.96); }
+      60% { transform: scale(1.14); }
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ELEMENTO DE AUDIO: CANCIÓN DE PUPPET (1.mp3) -->
+  <audio id="bgAudio" src="1.mp3" loop preload="auto"></audio>
+
+  <!-- LIENZO DE FONDO (Estrellas plateadas, luciérnagas, huellitas 🐾) -->
+  <canvas id="spaceCanvas"></canvas>
+
+  <!-- LIENZO INTERACTIVO (Gatitos chiquitos floreciendo al hacer clic) -->
+  <canvas id="kittyCanvas"></canvas>
+
+  <!-- PANTALLA INICIAL: SOBRE SELLADO -->
+  <div id="introOverlay">
+    <div class="envelope-box" id="openEnvelopeBtn">
+      <div class="envelope-seal">🤍</div>
+      <div class="intro-to">Algo escrito con todo el amor que te tengo</div>
+      <h1 class="intro-name">Para Fáti</h1>
+      <p class="intro-sub">«Mi cosita... te extraño mushoo»</p>
+      
+      <button class="btn-open">
+        <span>ven, vamos juntos 🐾</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- BARRA DE CONTROLES FLOTANTE SUPERIOR -->
+  <div class="top-bar">
+    <button class="glass-btn" id="audioToggleBtn" title="Reproducir / Pausar Música de Puppet">
+      <span id="audioIcon">🔇</span>
+      <span id="audioText">Música: Pausada</span>
+    </button>
+    <button class="glass-btn" id="clearKittiesBtn" title="Limpiar pantalla">
+      <span>🐾</span>
+      <span>Renovar gatitos</span>
+    </button>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="app-container">
+
+    <!-- HERO PRINCIPAL -->
+    <header class="hero">
+      <div class="hero-badge">te extraño muchoo</div>
+      <h1 class="hero-title">Fátima</h1>
+      <div class="hero-nickname">Mi Cosita Hermosa</div>
+      <p class="hero-quote">
+        Pase lo que pase y hacia dónde gire mi vida, siempre habrá un lugar en mi corazón que te recordará con respeto, con un gran amor y siempre como la niña más linda del universo entero
+      </p>
+    </header>
+
+    <!-- 1. LA CARTA QUE GUARDA TODO LO QUE SIENTO -->
+    <section class="section-card">
+      <div class="section-header">
+        <h2 class="section-title">Esto lo escribi con mucho cariño mi amor</h2>
+      </div>
+
+      <div class="letter-container">
+        <p>
+          <strong>Hola, mi cosita...</strong>
+        </p>
+        <p>
+          No recuerdo exactamente desde cuándo empecé a hacer esto en las noches, pero cada recuerdo o pensamiento sobre ti lo guardo en lo más profundo de mi alma y, bueno, ya hace un tiempo que tomamos rumbos distintos, y desde entonces no ha habido un solo día en el que cada vez que te pienso, vienen a mi mente todos esos momentos donde reímos juntos y donde, sin importar nada, éramos solamente tú y yo.
+        </p>
+        <p>
+          Quiero decirte desde lo más profundo y sincero de mi ser que te extraño cada día de mi vida. Me arrepiento con toda el alma de cada segundo que he estado lejos de ti, de los errores que cometí, de los silencios y de no haber sabido cuidar a tiempo lo más hermoso que pude tener: tú.
+        </p>
+        <p>
+          La verdad te quería decir algo y es que en verdad nunca te dejaré de amar, Fati, y daría cada parte de mí para poder estar a tu lado siempre. Quizá ahora no quieras saber nada de mí o estés mejor sola, pero ten por seguro que siempre tendrás un enorme espacio en mi corazón.
+        </p>
+        <p>
+          Pero por encima de cualquier deseo mío, hay algo que jamás cambiará sin importar lo que pase en mi vida: siempre, absolutamente siempre, te desearé lo mejor de este universo, cosita. Deseo que tus ojitos marrones tan bonitos que tienes nunca dejen de brillar, que alcances cada meta de las que me hablabas y que encuentres esa paz que necesitas en tu vida. Porque eres, sin duda alguna, una chica increíble y demasiado hermosa también.
+        </p>
+        <div class="letter-signature">
+          Con todo mi amor, para ti.
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. RECUERDOS: PLAYA Y CAMPO (CARRUSEL) -->
+    <section class="section-card">
+      <div class="memory-section-header">
+        <h2 class="section-title">Recuerdo estas cosas que te gustan... c:</h2>
+        <button class="memory-toggle-btn" id="memoryToggleBtn" aria-label="Cambiar recuerdo">
+          <span id="toggleArrow">→</span>
+        </button>
+      </div>
+
+      <!-- FOTO Y CONTENIDO DEL RECUERDO (CARRUSEL) -->
+      <div class="memory-carousel" id="memoryCarousel">
+        <!-- Estado 1: PLAYA -->
+        <div class="memory-slide active" data-memory="playa">
+          <div class="fati-showcase-container">
+            <img src="fATI.webp" alt="Recuerdo de la playa" class="fati-image" />
+            <div class="fati-badge-overlay">
+              <div class="fati-badge-title">La playa, espero que siempre te de paz este lugar</div>
+            </div>
+          </div>
+          <div class="memory-text">
+            <p>
+              Recuerdo bien cuando me contaste que te gusta ir a la playa de noche cada que tenías un mal, cada que te estresabas o cuando te sentías mal, me dijiste que te gustaba mucho, porque te daba paz y lograba calmarte. Recuerdo bien cuando me dijiste que tu papá te había llevado a la playa y que incluso te había dejado conducir el carro, me sentía demasiado feliz porque sabía que ese día podrías liberar todo el estrés de los papeleos que llevabas haciendo, jamás dejes de ir a la playa corazón, siempre que te sientas mal recuerda caminar por la orilla de la playa, porque así todo estará mejor...
+            </p>
+          </div>
+        </div>
+
+        <!-- Estado 2: CAMPO -->
+        <div class="memory-slide" data-memory="campo">
+          <div class="fati-showcase-container">
+            <img src="campo.jpg" alt="Vivir en el campo" class="fati-image" />
+            <div class="fati-badge-overlay">
+              <div class="fati-badge-title">uno de los muchos sueños que me contaste</div>
+            </div>
+          </div>
+          <div class="memory-text">
+            <p>
+              Esto es de los mejores recuerdos tuyos que tengo, fue un día cuando estábamos en llamada, recuerdo que me dijiste que te gustaría vivir en un campo, alejada del mundo, tener una casita muy linda, tener un Cane Corso y un caballo, jugar con ellos, salir a montar por todo el campo, también salir a caminar tranquila, sentarte a leer un libro ya que es de las cosas que más te encantan, bailar bajo la lluvia y sentirte libre y sabes, hay momentos donde te imagino tan hermosísima como siempre, sonriendo y bailando feliz bajo la lluvia y Dios, jamás va a existir una chica más hermosa que tú Fati, te amo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. EL RINCÓN DE LOS GATITOS CHIQUITOS -->
+    <section class="section-card">
+      <div class="section-header">
+        <div class="section-icon">🐾</div>
+        <h2 class="section-title">Los gatitoooos</h2>
+      </div>
+
+      <div class="cats-interactive-grid">
+        <!-- Gatito animado interactivo en escala de grises/blanco -->
+        <div class="cat-stage" id="catInteractiveArea">
+          <div class="cat-svg-wrapper" id="catSvgWrapper">
+            <svg viewBox="0 0 200 200" width="100%" height="100%">
+              <defs>
+                <radialGradient id="catFurMono" cx="50%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="70%" stop-color="#ececef" />
+                  <stop offset="100%" stop-color="#d1d1d6" />
+                </radialGradient>
+                <radialGradient id="catBlushMono" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45" />
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <!-- Cola con movimiento suave -->
+              <path id="catTail" d="M 140 145 Q 185 130 175 100 Q 165 75 150 90" fill="none" stroke="#d1d1d6" stroke-width="14" stroke-linecap="round">
+                <animateTransform attributeName="transform" type="rotate" values="0 140 145; 16 140 145; -8 140 145; 0 140 145" dur="3s" repeatCount="indefinite" />
+              </path>
+
+              <!-- Cuerpo de gatito acurrucado -->
+              <ellipse cx="100" cy="140" rx="55" ry="42" fill="url(#catFurMono)" />
+
+              <!-- Patitas delanteras blancas -->
+              <ellipse cx="80" cy="165" rx="14" ry="10" fill="#ffffff" />
+              <ellipse cx="120" cy="165" rx="14" ry="10" fill="#ffffff" />
+
+              <!-- Oreja izquierda -->
+              <polygon points="55,85 45,35 85,65" fill="#d1d1d6" />
+              <polygon points="57,80 50,45 80,68" fill="#ffffff" />
+
+              <!-- Oreja derecha -->
+              <polygon points="145,85 155,35 115,65" fill="#d1d1d6" />
+              <polygon points="143,80 150,45 120,68" fill="#ffffff" />
+
+              <!-- Cabecita redonda tierna -->
+              <circle cx="100" cy="95" r="48" fill="url(#catFurMono)" />
+
+              <!-- Mejillas suaves -->
+              <circle cx="68" cy="108" r="12" fill="url(#catBlushMono)" />
+              <circle cx="132" cy="108" r="12" fill="url(#catBlushMono)" />
+
+              <!-- Ojos sonrientes tiernos -->
+              <g id="catEyes">
+                <path d="M 72 94 Q 82 86 92 94" fill="none" stroke="#1c1c22" stroke-width="3.5" stroke-linecap="round" />
+                <path d="M 108 94 Q 118 86 128 94" fill="none" stroke="#1c1c22" stroke-width="3.5" stroke-linecap="round" />
+              </g>
+
+              <!-- Nariz de botón -->
+              <polygon points="97,103 103,103 100,107" fill="#8e8e93" />
+
+              <!-- Boquita tierna de gato :3 -->
+              <path d="M 94 109 Q 97 114 100 110 Q 103 114 106 109" fill="none" stroke="#1c1c22" stroke-width="2.5" stroke-linecap="round" />
+
+              <!-- Bigotitos plateados -->
+              <line x1="55" y1="105" x2="28" y2="102" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="55" y1="112" x2="30" y2="116" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="145" y1="105" x2="172" y2="102" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" />
+              <line x1="145" y1="112" x2="170" y2="116" stroke="#8e8e93" stroke-width="1.8" stroke-linecap="round" />
+
+              <!-- Cascabel plateado -->
+              <circle cx="100" cy="132" r="5" fill="#ffffff" />
+            </svg>
+          </div>
+
+          <div class="cat-bubble" id="catBubbleText">«Tócame y te doy un corazoncitoo »</div>
+
+          <div class="cat-actions">
+            <button class="cat-btn" id="petCatBtn">🐱 Acariciar</button>
+            <button class="cat-btn" id="feedCatBtn">🐟 Dar galletita</button>
+            <button class="cat-btn" id="yarnCatBtn">🧶 Lanzale el hilo :3</button>
+          </div>
+        </div>
+
+        <!-- Narrativa emocional -->
+        <div class="cats-narrative">
+          <p>
+            Siempre me encantó la manera en cómo te cambiaba la voz cada vez que encontrabas un gatito por la calle, recuerdo esa llamada donde me mostraste a ese gatito que te había acompañado mientras caminabas y se sentía tan lindo cómo me hablabas con tanta emoción, Dios, tan bonita, jamás pierdas ese amor tan bonito que tienes por los animales, cosita.
+          </p>
+          <p>
+            Esa forma tan linda en la que tú quieres a los animalitos hace ver el corazón y la forma de amar tan linda que tienes y cada vez que veo a un gatito, sonrío demasiado rápido y pienso en lo feliz que te pondrías si lo vieras, y una cosa más, ahora siempre cuando voy a un campo lo primero que hago es buscar un caracol, y me pongo a pensar en ti, porque si recuerdas una vez me dijiste que mi maldición sería ver un caracol y acordarme de ti, yo no lo veo como una maldición igual, de hecho es una de las maneras más puras que tengo de acordarme de ti, algún día aprender a prepararlos igual JEJEJE.
+          </p>
+        </div>
+      </div>
+
+      <!-- Botón de aparecer muchos gatitos (movido aquí desde sección 4) -->
+      <div style="text-align: center; margin-top: 25px;">
+        <button class="btn-burst-kitties" id="burstKittiesBtn">
+          <span>✨</span> Aparecer muchos gatitos
+        </button>
+      </div>
+    </section>
+
+    <!-- 4. EL GRAN PUPPET -->
+    <section class="section-card">
+      <div class="section-header">
+        <div class="section-icon"></div>
+        <h2 class="section-title">El gran puppet</h2>
+      </div>
+
+      <div class="fnaf-section-grid">
+        <!-- Puppet con la imagen real 1.png y reproducción de 1.mp3 -->
+        <div class="puppet-card">
+          <div class="puppet-img-frame" id="puppetFrame" title="Tocar para reproducir / pausar la canción de Puppet">
+            <img src="2.webp" alt="Puppet FNAF" class="puppet-img" id="puppetImg" />
+          </div>
+
+          <button class="puppet-play-btn" id="puppetBtn">
+            <span id="puppetBtnIcon">▶️</span>
+            <span id="puppetBtnText">Reproducir Puppet</span>
+          </button>
+        </div>
+
+        <!-- Texto de Puppet (reemplaza panel de gatitos) -->
+        <div class="kitty-counter-card">
+          <div>
+            <p style="font-size: 1.05rem; color: var(--text-silver); line-height: 1.75;">
+              Lo que recuerdo sobre esto fue cuando hablamos por TikTok y había unos peluches de FNAF y me dijiste que te gustaba mucho Puppet, (eso fui y lo anoté en mi bloc de notas de la PC), y siempre recuerdo feliz que me dijiste sobre que cuando estemos juntos ibas a contarme todo el lore de FNAF, y yo te decía que re feliz de que eso pase, y sí, también pienso en ti cada que mencionan algo sobre FNAF, o sobre cada cosa que te guste, en realidad, porque para mí es una forma en la cual puedo recordar a la mujer que más amo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. PROMESA FINAL Y DESEO AL UNIVERSO -->
+    <section class="section-card">
+      <div class="wish-box">
+        <p class="wish-quote">
+          Si alguna vez sientes que no puedes más, te quieres rendir o dudas de la increíble persona que eres, recuerda que en algún lugar del mundo hay alguien que siempre va a creer en todo el potencial que tienes, cosita, y que siempre le pedirá a Dios por la chica más increíble del universo: tú.
+        </p>
+
+        <button class="btn-hug" id="openHugBtn">
+          me puedes dar un abarcito :c?
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE ABRAZO Y DESEO INTERACTIVO -->
+  <div id="hugModal">
+    <div class="hug-content">
+      <div class="hug-heart-anim">🤍</div>
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #ffffff; margin-bottom: 14px;">
+        Gracias por el abrazo, Cosita
+      </h3>
+      <p style="font-size: 1rem; line-height: 1.75; color: #d4d4d8; margin-bottom: 26px;" id="randomWishText">
+        «Si tu vida alguna vez te parece demasiado pesada o te cansas de eso, cierra los ojos e imagina que ahora vives en ese campo verde alejada de todos con tu caballo, tu perrito y tus libros. Ojalá la vida te dé todo eso que tanto sueñas.»
+      </p>
+      <button class="btn-open" id="closeHugBtn" style="padding: 12px 32px; font-size: 0.85rem;">
+        Guardar en el corazón
+      </button>
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN TOAST -->
+  <div id="toast">🐾 Un gatito chiquito para alegrar a mi cosita</div>
+
+  <!-- PISTA INFERIOR -->
+  <div class="click-hint">Toca en cualquier parte para hacer aparecer un gatito chiquito 🐾</div>
+
+  <!-- FOOTER -->
+  <footer>
+    Esto lo hice con mucho amor, mi Cosita
+  </footer>
+
+  <!-- ==========================================================================
+       LÓGICA JAVASCRIPT: AUDIO (1.MP3), GATITOS CHIQUITOS Y PARTICULAS
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. SISTEMA DE AUDIO (1.mp3) CON MANEJO DE REPRODUCCIÓN
+       ========================================================================== */
+    const bgAudio = document.getElementById('bgAudio');
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+    const puppetBtn = document.getElementById('puppetBtn');
+    const puppetBtnIcon = document.getElementById('puppetBtnIcon');
+    const puppetBtnText = document.getElementById('puppetBtnText');
+    const puppetFrame = document.getElementById('puppetFrame');
+    let isAudioPlaying = false;
+
+    // Sintetizador Web Audio API para el ronroneo suave de gatitos
+    let audioCtx = null;
+    function initSynth() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function updateAudioUI(playing) {
+      isAudioPlaying = playing;
+      if (playing) {
+        audioToggleBtn.classList.add('active');
+        audioIcon.innerText = "🎵";
+        audioText.innerText = "Música: Sonando";
+        puppetBtnIcon.innerText = "⏸️";
+        puppetBtnText.innerText = "Pausar melodía";
+        puppetFrame.classList.add('playing');
+      } else {
+        audioToggleBtn.classList.remove('active');
+        audioIcon.innerText = "🔇";
+        audioText.innerText = "Música: Pausada";
+        puppetBtnIcon.innerText = "▶️";
+        puppetBtnText.innerText = "Reproducir Puppet";
+        puppetFrame.classList.remove('playing');
+      }
+    }
+
+    function playMusic() {
+      initSynth();
+      bgAudio.play().then(() => {
+        updateAudioUI(true);
+      }).catch(err => {
+        console.log("Audio waiting for user interaction:", err);
+      });
+    }
+
+    function pauseMusic() {
+      bgAudio.pause();
+      updateAudioUI(false);
+    }
+
+    function toggleMusic() {
+      if (isAudioPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
+      }
+    }
+
+    audioToggleBtn.addEventListener('click', toggleMusic);
+    puppetBtn.addEventListener('click', toggleMusic);
+    puppetFrame.addEventListener('click', toggleMusic);
+
+    // Efecto de sonido: Ronroneo y maullidito sintetizado al tocar un gatito
+    function playCatPurrSound() {
+      initSynth();
+      if (!audioCtx) return;
+
+      try {
+        // Vibración ronroneo (onda triangular modulada)
+        const purrOsc = audioCtx.createOscillator();
+        const purrGain = audioCtx.createGain();
+        const lfo = audioCtx.createOscillator();
+        const lfoGain = audioCtx.createGain();
+
+        purrOsc.type = 'triangle';
+        purrOsc.frequency.setValueAtTime(28, audioCtx.currentTime);
+
+        lfo.type = 'sine';
+        lfo.frequency.setValueAtTime(22, audioCtx.currentTime);
+        lfoGain.gain.setValueAtTime(14, audioCtx.currentTime);
+
+        lfo.connect(purrOsc.frequency);
+
+        purrGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        purrGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.2);
+        purrGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+
+        purrOsc.connect(purrGain);
+        purrGain.connect(audioCtx.destination);
+
+        lfo.start();
+        purrOsc.start();
+        purrOsc.stop(audioCtx.currentTime + 1.5);
+        lfo.stop(audioCtx.currentTime + 1.5);
+
+        // Maullidito dulce de gatito chiquito
+        const meowOsc = audioCtx.createOscillator();
+        const meowGain = audioCtx.createGain();
+        meowOsc.type = 'sine';
+        meowOsc.frequency.setValueAtTime(680, audioCtx.currentTime + 0.05);
+        meowOsc.frequency.exponentialRampToValueAtTime(820, audioCtx.currentTime + 0.25);
+        meowOsc.frequency.exponentialRampToValueAtTime(540, audioCtx.currentTime + 0.6);
+
+        meowGain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        meowGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 0.15);
+        meowGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.65);
+
+        meowOsc.connect(meowGain);
+        meowGain.connect(audioCtx.destination);
+
+        meowOsc.start(audioCtx.currentTime + 0.05);
+        meowOsc.stop(audioCtx.currentTime + 0.65);
+      } catch (e) {}
+    }
+
+
+    /* ==========================================================================
+       2. CANVAS 1: FONDO PERMANENTE (Estrellas, luciérnagas, huellitas 🐾)
+       ========================================================================== */
+    const spaceCanvas = document.getElementById('spaceCanvas');
+    const sCtx = spaceCanvas.getContext('2d');
+    let width, height;
+
+    function resizeSpace() {
+      width = spaceCanvas.width = window.innerWidth;
+      height = spaceCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeSpace);
+    resizeSpace();
+
+    // Estrellas en escala de grises y blanco
+    const stars = [];
+    const starCount = 140;
+    for (let i = 0; i < starCount; i++) {
+      stars.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 1.5 + 0.4,
+        alpha: Math.random(),
+        speed: Math.random() * 0.02 + 0.005,
+        color: ['#ffffff', '#e4e4e7', '#d1d1d6', '#a1a1aa'][Math.floor(Math.random() * 4)]
+      });
+    }
+
+    // Huellitas y partículas flotantes
+    const floatingPaws = [];
+    const pawCount = 20;
+    for (let i = 0; i < pawCount; i++) {
+      floatingPaws.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 12 + 10,
+        speedY: Math.random() * 0.6 + 0.3,
+        speedX: Math.random() * 0.5 - 0.25,
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.015,
+        alpha: Math.random() * 0.4 + 0.2
+      });
+    }
+
+    // Estrella fugaz plateada
+    let shootingStar = null;
+    function triggerShootingStar() {
+      shootingStar = {
+        x: Math.random() * (width * 0.7),
+        y: Math.random() * (height * 0.4),
+        len: Math.random() * 100 + 70,
+        speed: Math.random() * 10 + 12,
+        alpha: 1
+      };
+      setTimeout(triggerShootingStar, Math.random() * 7000 + 4000);
+    }
+    setTimeout(triggerShootingStar, 2500);
+
+    function animateSpace() {
+      sCtx.clearRect(0, 0, width, height);
+
+      // Dibujar estrellas
+      for (let s of stars) {
+        s.alpha += s.speed;
+        if (s.alpha > 1 || s.alpha < 0.15) s.speed = -s.speed;
+
+        sCtx.beginPath();
+        sCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        sCtx.fillStyle = s.color;
+        sCtx.globalAlpha = Math.max(0, Math.min(1, s.alpha));
+        sCtx.fill();
+      }
+
+      // Dibujar estrella fugaz
+      if (shootingStar) {
+        sCtx.save();
+        sCtx.beginPath();
+        sCtx.moveTo(shootingStar.x, shootingStar.y);
+        sCtx.lineTo(shootingStar.x + shootingStar.len, shootingStar.y + shootingStar.len * 0.55);
+        const grad = sCtx.createLinearGradient(
+          shootingStar.x, shootingStar.y,
+          shootingStar.x + shootingStar.len, shootingStar.y + shootingStar.len * 0.55
+        );
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        grad.addColorStop(1, `rgba(255, 255, 255, ${shootingStar.alpha})`);
+        sCtx.strokeStyle = grad;
+        sCtx.lineWidth = 2.2;
+        sCtx.stroke();
+        sCtx.restore();
+
+        shootingStar.x += shootingStar.speed;
+        shootingStar.y += shootingStar.speed * 0.55;
+        shootingStar.alpha -= 0.025;
+        if (shootingStar.alpha <= 0) shootingStar = null;
+      }
+
+      // Dibujar huellitas flotantes suaves
+      for (let p of floatingPaws) {
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.01) * 0.5 + p.speedX;
+        p.rot += p.rotSpeed;
+
+        if (p.y > height + 25) {
+          p.y = -25;
+          p.x = Math.random() * width;
+        }
+
+        sCtx.save();
+        sCtx.translate(p.x, p.y);
+        sCtx.rotate(p.rot);
+        sCtx.globalAlpha = p.alpha;
+        sCtx.font = `${p.size}px sans-serif`;
+        sCtx.fillStyle = "#ffffff";
+        sCtx.shadowColor = "rgba(255, 255, 255, 0.4)";
+        sCtx.shadowBlur = 8;
+        sCtx.fillText("🐾", 0, 0);
+        sCtx.restore();
+      }
+
+      sCtx.globalAlpha = 1;
+      requestAnimationFrame(animateSpace);
+    }
+    animateSpace();
+
+
+    /* ==========================================================================
+       3. CANVAS 2: GATITOS CHIQUITOS INTERACTIVOS (ANIMACIONES TIERNAS AL CLIC)
+       ========================================================================== */
+    const kittyCanvas = document.getElementById('kittyCanvas');
+    const kCtx = kittyCanvas.getContext('2d');
+
+    function resizeKittyCanvas() {
+      kittyCanvas.width = window.innerWidth;
+      kittyCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeKittyCanvas);
+    resizeKittyCanvas();
+
+    const spawnedKitties = [];
+    let kittyCount = 0;
+
+    // Clase de Gatito Chiquito animado
+    class TinyKitty {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.scale = 0;
+        this.targetScale = Math.random() * 0.35 + 0.85;
+        this.bounceSpeed = 0.07;
+        this.isMax = false;
+        this.vy = -1.2;
+        this.alpha = 1;
+        this.life = 160; // Duración en fotogramas
+        this.type = Math.floor(Math.random() * 4); // 4 estilos de gatitos tiernos
+        this.heartAngle = Math.random() * Math.PI * 2;
+
+        // Partículas de brillitos alrededor
+        this.sparks = [];
+        for (let i = 0; i < 8; i++) {
+          this.sparks.push({
+            x: 0,
+            y: 0,
+            vx: (Math.random() - 0.5) * 3,
+            vy: (Math.random() - 0.5) * 3,
+            alpha: 1
+          });
+        }
+      }
+
+      update() {
+        if (!this.isMax) {
+          this.scale += this.bounceSpeed;
+          if (this.scale >= this.targetScale) {
+            this.scale = this.targetScale;
+            this.isMax = true;
+          }
+        } else {
+          this.y += this.vy;
+          this.vy *= 0.98;
+          this.life--;
+          if (this.life < 40) {
+            this.alpha = this.life / 40;
+          }
+        }
+
+        for (let sp of this.sparks) {
+          sp.x += sp.vx;
+          sp.y += sp.vy;
+          sp.alpha -= 0.02;
+        }
+      }
+
+      draw(ctx) {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.scale(this.scale, this.scale);
+        ctx.globalAlpha = Math.max(0, this.alpha);
+
+        // Estilos de pelaje en blanco, gris y negro
+        let furColor = "#ffffff";
+        let earInner = "#e4e4e7";
+        let outline = "#18181b";
+
+        if (this.type === 1) { // Gatito gris plateado
+          furColor = "#d1d1d6";
+          earInner = "#ffffff";
+        } else if (this.type === 2) { // Gatito blanquito con orejitas grises
+          furColor = "#fbfbfb";
+          earInner = "#a1a1aa";
+        } else if (this.type === 3) { // Gatito carbón elegante
+          furColor = "#27272a";
+          earInner = "#52525b";
+          outline = "#09090b";
+        }
+
+        // Sombra suave
+        ctx.shadowColor = "rgba(255, 255, 255, 0.4)";
+        ctx.shadowBlur = 16;
+
+        // Orejas
+        ctx.fillStyle = furColor;
+        ctx.beginPath();
+        ctx.moveTo(-24, -12);
+        ctx.lineTo(-35, -42);
+        ctx.lineTo(-8, -25);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(24, -12);
+        ctx.lineTo(35, -42);
+        ctx.lineTo(8, -25);
+        ctx.fill();
+
+        // Interior de orejas
+        ctx.fillStyle = earInner;
+        ctx.beginPath();
+        ctx.moveTo(-22, -15);
+        ctx.lineTo(-30, -36);
+        ctx.lineTo(-11, -24);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.moveTo(22, -15);
+        ctx.lineTo(30, -36);
+        ctx.lineTo(11, -24);
+        ctx.fill();
+
+        // Cabeza redondita de gatito chiquito
+        ctx.fillStyle = furColor;
+        ctx.beginPath();
+        ctx.arc(0, 0, 32, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Patitas delanteras tiernas
+        ctx.fillStyle = "#ffffff";
+        ctx.beginPath();
+        ctx.arc(-14, 25, 9, 0, Math.PI * 2);
+        ctx.arc(14, 25, 9, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Ojos tiernos
+        const eyeColor = this.type === 3 ? "#ffffff" : "#18181b";
+        ctx.strokeStyle = eyeColor;
+        ctx.fillStyle = eyeColor;
+        ctx.lineWidth = 3;
+
+        if (this.type === 0 || this.type === 2) {
+          // Ojos abiertos brillantes con punto de luz
+          ctx.beginPath();
+          ctx.arc(-11, -4, 5.5, 0, Math.PI * 2);
+          ctx.arc(11, -4, 5.5, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = "#ffffff";
+          ctx.beginPath();
+          ctx.arc(-12, -6, 2, 0, Math.PI * 2);
+          ctx.arc(10, -6, 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          // Ojos felices curvados ^.^
+          ctx.beginPath();
+          ctx.arc(-11, -2, 6, Math.PI, 0);
+          ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(11, -2, 6, Math.PI, 0);
+          ctx.stroke();
+        }
+
+        // Naricita
+        ctx.fillStyle = this.type === 3 ? "#a1a1aa" : "#71717a";
+        ctx.beginPath();
+        ctx.moveTo(-3, 6);
+        ctx.lineTo(3, 6);
+        ctx.lineTo(0, 9);
+        ctx.fill();
+
+        // Boquita :3
+        ctx.strokeStyle = eyeColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(-4, 11, 4, 0, Math.PI * 0.85);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(4, 11, 4, Math.PI * 0.15, Math.PI);
+        ctx.stroke();
+
+        // Bigotitos
+        ctx.strokeStyle = this.type === 3 ? "#d1d1d6" : "#8e8e93";
+        ctx.lineWidth = 1.5;
+        // Izquierda
+        ctx.beginPath();
+        ctx.moveTo(-18, 8); ctx.lineTo(-38, 5);
+        ctx.moveTo(-18, 12); ctx.lineTo(-36, 17);
+        ctx.stroke();
+        // Derecha
+        ctx.beginPath();
+        ctx.moveTo(18, 8); ctx.lineTo(38, 5);
+        ctx.moveTo(18, 12); ctx.lineTo(36, 17);
+        ctx.stroke();
+
+        // Corazoncito blanco flotando arriba
+        ctx.font = "16px sans-serif";
+        ctx.fillText("🤍", -8, -45);
+
+        // Brillos / chispitas
+        for (let sp of this.sparks) {
+          if (sp.alpha > 0) {
+            ctx.fillStyle = `rgba(255, 255, 255, ${sp.alpha})`;
+            ctx.beginPath();
+            ctx.arc(sp.x, sp.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        ctx.restore();
+      }
+    }
+
+    function animateKitties() {
+      kCtx.clearRect(0, 0, kittyCanvas.width, kittyCanvas.height);
+      for (let i = spawnedKitties.length - 1; i >= 0; i--) {
+        const k = spawnedKitties[i];
+        k.update();
+        k.draw(kCtx);
+        if (k.life <= 0) {
+          spawnedKitties.splice(i, 1);
+        }
+      }
+      requestAnimationFrame(animateKitties);
+    }
+    animateKitties();
+
+    function spawnKitty(x, y) {
+      spawnedKitties.push(new TinyKitty(x, y));
+      if (spawnedKitties.length > 30) {
+        spawnedKitties.shift();
+      }
+      kittyCount++;
+      document.getElementById('kittyCounterText').innerText = `Gatitos para ti: ${kittyCount}`;
+      playCatPurrSound();
+
+      // Frases y notas tiernas
+      const toast = document.getElementById('toast');
+      const messages = [
+        "🐾 Un gatito chiquito para alegrarte, cosita",
+        "🤍 Fáti, cada cosa linda me receurda a ti",
+        "Eres la persona más increíble del mundo",
+        "Me arrepiento de cada segundo lejos de ti... te amo",
+        "Te mando un gato para que salgas a caminar",
+        "Que ese campo hermoso con el que sueñas se haga realidad",
+        "Te mando un abrazo enorme"
+      ];
+
+      if (kittyCount % 3 === 0) {
+        toast.innerText = messages[(kittyCount / 3) % messages.length];
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2600);
+      }
+    }
+
+    // Clic en la pantalla para sembrar gatito
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('button') || e.target.closest('.cat-stage') || e.target.closest('#introOverlay') || e.target.closest('#hugModal')) {
+        return;
+      }
+      spawnKitty(e.clientX, e.clientY);
+    });
+
+    // Toque en móviles
+    window.addEventListener('touchend', (e) => {
+      if (e.target.closest('button') || e.target.closest('.cat-stage') || e.target.closest('#introOverlay') || e.target.closest('#hugModal')) {
+        return;
+      }
+      if (e.changedTouches && e.changedTouches[0]) {
+        spawnKitty(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      }
+    });
+
+    document.getElementById('burstKittiesBtn').addEventListener('click', () => {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+          const rx = Math.random() * (window.innerWidth * 0.7) + (window.innerWidth * 0.15);
+          const ry = Math.random() * (window.innerHeight * 0.6) + (window.innerHeight * 0.2);
+          spawnKitty(rx, ry);
+        }, i * 200);
+      }
+    });
+
+    document.getElementById('clearKittiesBtn').addEventListener('click', () => {
+      spawnedKitties.length = 0;
+      kittyCount = 0;
+      document.getElementById('kittyCounterText').innerText = `Gatitos para ti: 0`;
+      const toast = document.getElementById('toast');
+      toast.innerText = "🐾 Pantalla renovada para nuevos gatitos";
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    });
+
+    /* ==========================================================================
+       CARRUSEL DE RECUERDOS (PLAYA / CAMPO)
+       ========================================================================== */
+    const memoryToggleBtn = document.getElementById('memoryToggleBtn');
+    const toggleArrow = document.getElementById('toggleArrow');
+    const memorySlides = document.querySelectorAll('.memory-slide');
+    let currentMemory = 0; // 0 = playa, 1 = campo
+
+    function showMemory(index) {
+      memorySlides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+      // Cambiar la flecha: → para playa (avanzar a campo), ← para campo (volver a playa)
+      toggleArrow.innerText = index === 0 ? '→' : '←';
+      memoryToggleBtn.setAttribute('aria-label', index === 0 ? 'Ver recuerdo del campo' : 'Ver recuerdo de la playa');
+    }
+
+    memoryToggleBtn.addEventListener('click', () => {
+      currentMemory = 1 - currentMemory; // Alternar entre 0 y 1
+      showMemory(currentMemory);
+    });
+
+    // Inicializar
+    showMemory(0);
+
+
+    /* ==========================================================================
+       4. INTERACTIVIDAD DEL GATITO (RONRONEO, JUEGO, DETALLES)
+       ========================================================================== */
+    const catInteractiveArea = document.getElementById('catInteractiveArea');
+    const catBubbleText = document.getElementById('catBubbleText');
+    const catSvgWrapper = document.getElementById('catSvgWrapper');
+
+    const catQuotes = [
+      "«Jamás dejes de amar a los gatitos 🤍»",
+      "«*prrrr... ronroneando felizmente por ti (no soy el gato)* »",
+      "«ME ENCANTA COMO BRILLAN TUS OJITOOS»",
+      "«Acuérdate de que eres una persona maravillosa»",
+      "«*abrazo de gatito*»"
+    ];
+
+    function petCat() {
+      playCatPurrSound();
+      catSvgWrapper.style.transform = "scale(1.08)";
+      setTimeout(() => catSvgWrapper.style.transform = "scale(1)", 250);
+
+      const randomQ = catQuotes[Math.floor(Math.random() * catQuotes.length)];
+      catBubbleText.innerText = randomQ;
+
+      // Efecto de corazoncito blanco flotante
+      const heart = document.createElement('div');
+      heart.innerText = "🤍";
+      heart.style.position = "absolute";
+      heart.style.left = "50%";
+      heart.style.top = "30%";
+      heart.style.transform = "translate(-50%, -50%)";
+      heart.style.fontSize = "2.2rem";
+      heart.style.pointerEvents = "none";
+      heart.style.transition = "all 1s ease";
+      heart.style.opacity = "1";
+      catInteractiveArea.appendChild(heart);
+
+      setTimeout(() => {
+        heart.style.transform = "translate(-50%, -120px) scale(1.4)";
+        heart.style.opacity = "0";
+      }, 50);
+      setTimeout(() => heart.remove(), 1100);
+    }
+
+    catInteractiveArea.addEventListener('click', (e) => {
+      if (!e.target.closest('.cat-btn')) {
+        petCat();
+      }
+    });
+
+    document.getElementById('petCatBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      petCat();
+    });
+
+    document.getElementById('feedCatBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      playCatPurrSound();
+      catBubbleText.innerText = "«*AWWWWW* Gracias por la galletita, Fáti! Eres la mejor»";
+    });
+
+    document.getElementById('yarnCatBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      playCatPurrSound();
+      catBubbleText.innerText = "«*Ahora me creere goku, te lanzare el hilo* - Te mando un abrazo de gato!»";
+    });
+
+
+    /* ==========================================================================
+       5. GESTIÓN DE PANTALLA INICIAL Y MODALES
+       ========================================================================== */
+    const introOverlay = document.getElementById('introOverlay');
+    const openEnvelopeBtn = document.getElementById('openEnvelopeBtn');
+
+    function openEnvelope() {
+      introOverlay.classList.add('fade-out');
+      playMusic();
+
+      // Sembrar 3 gatitos chiquitos de bienvenida
+      setTimeout(() => {
+        spawnKitty(window.innerWidth * 0.25, window.innerHeight * 0.4);
+      }, 700);
+      setTimeout(() => {
+        spawnKitty(window.innerWidth * 0.75, window.innerHeight * 0.45);
+      }, 1300);
+      setTimeout(() => {
+        spawnKitty(window.innerWidth * 0.5, window.innerHeight * 0.35);
+      }, 1900);
+    }
+
+    openEnvelopeBtn.addEventListener('click', openEnvelope);
+
+    // Modal de Abrazo y Deseo
+    const hugModal = document.getElementById('hugModal');
+    const openHugBtn = document.getElementById('openHugBtn');
+    const closeHugBtn = document.getElementById('closeHugBtn');
+    const randomWishText = document.getElementById('randomWishText');
+
+    const sincereWishes = [
+      "«Si tu vida alguna vez te parece demasiado pesada o te cansas de eso, cierra los ojos e imagina que ahora vives en ese campo verde alejada de todos con tu caballo, tu perrito y tus libros. Ojalá la vida te dé todo eso que tanto sueñas.»"
+    ];
+
+    openHugBtn.addEventListener('click', () => {
+      const wish = sincereWishes[Math.floor(Math.random() * sincereWishes.length)];
+      randomWishText.innerText = wish;
+      hugModal.classList.add('active');
+    });
+
+    closeHugBtn.addEventListener('click', () => {
+      hugModal.classList.remove('active');
+    });
+
+    hugModal.addEventListener('click', (e) => {
+      if (e.target === hugModal) hugModal.classList.remove('active');
+    });
+
+  </script>
+</body>
+</html>
